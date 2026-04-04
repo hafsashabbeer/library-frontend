@@ -1,0 +1,15 @@
+<nav>
+  <a routerLink="/books">Books</a>
+</nav>
+
+<div *ngIf = "(bookPageResponse?.content?.length|| 0) > 0"; else noBooks>
+    <ul>
+        <li *ngFor = "let book of bookPageResponse?.content">
+            {{book.title}} by {{book.author}} ({{book.year}}) - {{book.available ? 'Available' : 'Not Available'}}
+        </li>
+    </ul>
+</div>
+
+<ng-template #noBooks>
+  <p>No books found</p>
+</ng-template>
