@@ -1,1 +1,28 @@
-<p>members works!</p>
+<nav>
+  <a routerLink="/members">Members</a>
+</nav>
+
+<div *ngIf="(membersPagedResponse?.content?.length ?? 0) > 0; else noMembers">
+  <ul>
+    <li *ngFor="let member of membersPagedResponse?.content">
+      {{ member.id }} - {{ member.name }} ({{ member.email }})
+    </li>
+  </ul>
+</div>
+
+<ng-template #noMembers>
+  <p>No members found</p>
+</ng-template>
+
+<p>Page {{ currentPage + 1 }} of {{ membersPagedResponse?.totalPages }}</p>
+
+<button type="button" (click)="previousPage()" [disabled]="currentPage <= 0">
+  Previous
+</button>
+
+<button
+  type="button"
+  (click)="nextPage()"
+  [disabled]="currentPage >= ((membersPagedResponse?.totalPages ?? 0) - 1)">
+  Next
+</button>
