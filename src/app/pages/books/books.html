@@ -2,14 +2,28 @@
   <a routerLink="/books">Books</a>
 </nav>
 
-<div *ngIf = "(bookPageResponse?.content?.length|| 0) > 0"; else noBooks>
-    <ul>
-        <li *ngFor = "let book of bookPageResponse?.content">
-            {{book.title}} by {{book.author}} ({{book.year}}) - {{book.available ? 'Available' : 'Not Available'}}
-        </li>
-    </ul>
+<div *ngIf="(bookPageResponse?.content?.length ?? 0) > 0; else noBooks">
+  <ul>
+    <li *ngFor="let book of bookPageResponse?.content">
+      {{ book.bookId }} - {{ book.title }} by {{ book.author }} ({{ book.year }}) -
+      {{ book.available ? 'Available' : 'Not Available' }}
+    </li>
+  </ul>
 </div>
 
 <ng-template #noBooks>
   <p>No books found</p>
 </ng-template>
+
+<p>Page {{ currentPage + 1 }} of {{ bookPageResponse?.totalPages }}</p>
+
+<button type="button" (click)="previousPage()" [disabled]="currentPage <= 0">
+  Previous
+</button>
+
+<button
+  type="button"
+  (click)="nextPage()"
+  [disabled]="currentPage >= ((bookPageResponse?.totalPages ?? 0) - 1)">
+  Next
+</button>

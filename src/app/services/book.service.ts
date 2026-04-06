@@ -1,5 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BookResponse } from '../models/book-response';
+import { PagedResponse } from '../models/paged-response';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
